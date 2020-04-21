@@ -57,6 +57,47 @@ echo "$PY_FILES"
 
 # RUN LINTING
 # ===================================================
+
+start_section "TYPE CHECKING MYPY"
+cd "${CWD}"
+
+set +e
+MYPY_RESULT=$(mypy ${PY_FILES} --show-traceback)
+set -e
+
+SAVEIFS=$IFS
+IFS=$'\n'
+MYPY_RESULT_LINES=(${MYPY_RESULT})
+IFS=$SAVEIFS
+
+MAX_LINES_COUNTER=0
+ERROR_LINES_COUNTER=0
+for (( i=0; i<${#MYPY_RESULT_LINES[@]}; i++ ))
+do
+    _LINE=${MYPY_RESULT_LINES[${i}]}
+
+    {
+        _UNUSED_VAR=$(echo ${_LINE} | egrep --color --ignore-case --extended-regexp ^[^:]+:.+)
+    } && {
+        if (( ${#_UNUSED_VAR} > 1 ))
+        then
+            echo ${_LINE} | grep --color --ignore-case --extended-regexp ^[^:]+
+            ERROR_LINES_COUNTER=$((ERROR_LINES_COUNTER+1))
+        else
+            echo -e "${CYAN}>> ${_LINE}${NC}"
+        fi
+    } || {
+        echo -e "${CYAN}>> ${_LINE}${NC}"
+    }
+
+    if (( ${#_LINE} > 1 ))
+    then
+        MAX_LINES_COUNTER=${i}
+    fi
+done
+
+end_section ${ERROR_LINES_COUNTER}
+
 start_section "CHECK SECURITY : BANDIT"
 cd "${CWD}"
 bandit -c .bandit.yml -r -ll ${CWD}
