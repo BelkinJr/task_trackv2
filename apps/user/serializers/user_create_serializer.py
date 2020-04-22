@@ -2,6 +2,7 @@ from rest_framework import serializers
 from apps.user.models.user import User
 from typing import Dict, Any
 
+
 class UserCreateSerializer(serializers.ModelSerializer):
 
     password2 = serializers.CharField(max_length=255, style={'input_type': 'password'}, write_only=True)
