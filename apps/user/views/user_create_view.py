@@ -19,3 +19,11 @@ class UserCreateView(generics.GenericAPIView):
         user_obj = serializer.create(serializer.validated_data)
         response_data = {'user': UserDetailSerializer(user_obj).data}
         return Response(data=response_data, status=status.HTTP_201_CREATED)
+
+    def get(self, request: Request) -> Response:
+        data = User.objects.all()
+        serializer = UserDetailSerializer(data=data, many=True)
+        if not serializer.is_valid():
+            return Response(data=serializer.errors)
+        response_data = serializer.data
+        return Response(data=response_data, status=status.HTTP_200_OK)

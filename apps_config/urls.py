@@ -18,12 +18,10 @@ from django.urls import path
 
 from apps.base.constants import API_URL
 from apps.user.views.user_create_view import UserCreateView
-from apps.user.views.user_list_view import UserListView
 from apps.user.views.user_login_view import UserLoginView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path(f'{API_URL}/user/', UserCreateView.as_view()),
-    path(f'{API_URL}/userlist/', UserListView.as_view()),
+    path(f'{API_URL}/users/', UserCreateView.as_view()),
     path(f'{API_URL}/login/', UserLoginView.as_view()),
 ]
