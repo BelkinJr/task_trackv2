@@ -5,7 +5,6 @@ from rest_framework.request import Request
 from apps.user.serializers.user_login_serializer import UserLoginSerializer
 from apps.user.utils.create_token import create_access_and_refresh_token
 from typing import Any
-import json
 
 
 class UserLoginView(generics.RetrieveAPIView):
@@ -24,4 +23,4 @@ class UserLoginView(generics.RetrieveAPIView):
 
         tokens = create_access_and_refresh_token(**data)
 
-        return Response(json.dumps(tokens), status=200, content_type="application/json")
+        return Response(data=tokens, status=200)
