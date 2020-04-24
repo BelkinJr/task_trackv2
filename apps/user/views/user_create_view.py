@@ -7,7 +7,7 @@ from apps.user.serializers.user_detail_serializer import UserDetailSerializer
 from typing import Any
 
 
-class UserCreateView(generics.GenericAPIView):
+class UserView(generics.GenericAPIView):
     queryset = User.objects.all()
     serializer_class = UserCreateSerializer
 
@@ -20,10 +20,7 @@ class UserCreateView(generics.GenericAPIView):
         response_data = {'user': UserDetailSerializer(user_obj).data}
         return Response(data=response_data, status=status.HTTP_201_CREATED)
 
-    def get(self, request: Request) -> Response:
-        data = User.objects.all()
-        serializer = UserDetailSerializer(data=data, many=True)
-        if not serializer.is_valid():
-            return Response(data=serializer.errors)
-        response_data = serializer.data
+    def get(self, request: Request, *args: Any, **kwargs: Any) -> Response:
+        users_qs = self.get_queryset()
+        response_data = UserDetailSerializer(users_qs, many=True).data
         return Response(data=response_data, status=status.HTTP_200_OK)
