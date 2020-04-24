@@ -4,7 +4,7 @@ from apps.user.models import User
 
 
 class Note(BaseModel):
-    
+
     body = models.TextField()
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='blog_posts')
 
