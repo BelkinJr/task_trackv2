@@ -17,5 +17,5 @@ class UserCreateView(generics.GenericAPIView):
         if not serializer.is_valid():
             return Response(data=serializer.errors)
         user_obj = serializer.create(serializer.validated_data)
-        response_data = {'user': UserDetailSerializer(user_obj).data}  # Можно заменить на UserCreateSerializer
+        response_data = {'user': UserDetailSerializer(user_obj).data}
         return Response(data=response_data, status=status.HTTP_201_CREATED)

@@ -13,15 +13,14 @@ class UserLoginView(generics.RetrieveAPIView):
 
     def post(self, request: Request, *args: Any, **kwargs: Any) -> Response:
         data = request.data
-
+        serializer = self.get_serializer(data=data)
+        if not serializer.is_valid():
+            return Response(data=serializer.errors)
         username = request.data['username']
         password = request.data['password']
         user = authenticate(username=username, password=password)
         if user is None:
             return Response({'Error': "Invalid username/password"}, status="400")
-        # serializer = self.get_serializer(data=data)
-        # if not serializer.is_valid():
-        #     return Response(data=serializer.errors)
 
         tokens = create_access_and_refresh_token(**data)
 
