@@ -19,9 +19,11 @@ from django.urls import path
 from apps.base.constants import API_URL
 from apps.user.views.user_create_view import UserView
 from apps.user.views.user_login_view import UserLoginView
+from apps.notes.views.note_create_view import NoteCreateView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path(f'{API_URL}/users/', UserView.as_view(), name='users'),
     path(f'{API_URL}/login/', UserLoginView.as_view(), name='login'),
+    path(f'{API_URL}/notes/', NoteCreateView.as_view(), name='note'),
 ]
