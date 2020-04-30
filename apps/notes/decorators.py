@@ -8,11 +8,13 @@ def login_required(func):
 
     def wrapper(self, request, *args, **kwargs):
 
-        data = request.data
+        data = request.data['payload']
         token = data['at']
         try:
             decoded_data = jwt.decode(token, JWT_SECRET, JWT_ALGORITHM)
-            User.objects.get(id=decoded_data['id'])
+            user = User.objects.get(id=decoded_data['id'])
+
+            kwargs['user'] = user
 
         except User.DoesNotExist:
             return Response({'Error': "User not found"}, status=400)

@@ -23,7 +23,8 @@ class UserLoginView(generics.RetrieveAPIView):
         if user is None:
             return Response({'Error': "Invalid username/password"}, status="400")
 
-        user_id = serializer.instance.id
+        user_id = {'id': str(user.id)}
+        print(user_id)
         tokens = create_access_and_refresh_token(user_id)
 
         return Response(data=tokens, status=200)
