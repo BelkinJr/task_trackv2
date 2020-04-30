@@ -8,12 +8,12 @@ from apps.notes.serializers.note_create_serializer import NoteCreateSerializer
 from apps.notes.decorators import login_required
 
 
-class NoteCreateView(generics.GenericAPIView):
+class NoteView(generics.GenericAPIView):
     queryset = Note.objects.all()
     serializer_class = NoteCreateSerializer
 
     @login_required
-    def post(self, request: Request, *args: Any, user, **kwargs: Any) -> Response:
+    def post(self, request: Request, *args: Any, user: User, **kwargs: Any) -> Response:
         # data = request.data['payload']
         request.data['payload'].update({'author': user.__dict__})
         print(request.data['payload'])
