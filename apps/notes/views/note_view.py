@@ -19,5 +19,5 @@ class NoteView(generics.GenericAPIView):
         if not serializer.is_valid():
             return Response(data=serializer.errors)
         note_obj = serializer.create(serializer.validated_data)
-        response_data = {'note created TEST'}
+        response_data = {'note': NoteCreateSerializer(note_obj).data}
         return Response(data=response_data, status=status.HTTP_201_CREATED)
