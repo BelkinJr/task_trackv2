@@ -12,8 +12,7 @@ def login_required(func: TFunc) -> TFunc:
     @functools.wraps(func)
     def wrapper(*args: Any, **kwargs: Any) -> Any:
 
-        view = args[1]
-        data = view.data['payload']
+        data = args[1].request.data['payload']
         token = data['at']
         try:
             decoded_data = jwt.decode(token, JWT_SECRET, True, JWT_ALGORITHM)
