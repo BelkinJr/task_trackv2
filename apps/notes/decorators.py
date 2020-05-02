@@ -1,4 +1,3 @@
-from rest_framework.request import Request
 from rest_framework.response import Response
 from apps.base.constants import JWT_SECRET, JWT_ALGORITHM
 from apps.user.models.user import User
@@ -11,9 +10,10 @@ TFunc = TypeVar('TFunc', bound=Callable)  # type: ignore
 
 def login_required(func: TFunc) -> TFunc:
     @functools.wraps(func)
-    def wrapper(self: Any, request: Request, *args: Any, **kwargs: Any) -> Any:
+    def wrapper(*args: Any, **kwargs: Any) -> Any:
 
-        data = request.data['payload']
+        view = args[1]
+        data = view.data['payload']
         token = data['at']
         try:
             decoded_data = jwt.decode(token, JWT_SECRET, True, JWT_ALGORITHM)
@@ -27,5 +27,5 @@ def login_required(func: TFunc) -> TFunc:
         except jwt.DecodeError:
             return Response({"error_code": "INVALID_TOKEN"}, status=401)
 
-        return func(self, request, *args, **kwargs)
+        return func(*args, **kwargs)
     return cast(TFunc, wrapper)
