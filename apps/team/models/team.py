@@ -8,6 +8,7 @@ class Team (BaseModel):
 
     team_name = models.CharField(max_length=255)
     users = models.ManyToManyField(User, related_name='teams', through=UserTeam)
+    creator_id = models.UUIDField()
 
     class Meta:
         db_table = 'team'

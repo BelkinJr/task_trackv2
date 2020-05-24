@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from apps.base.managers import IsActiveManager, AllObjectsManager
 import uuid
 
 
@@ -12,7 +13,13 @@ class User(AbstractUser):
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)
 
+    objects = IsActiveManager
+    objects_all = AllObjectsManager
+
     USERNAME_FIELD = 'username'
+
+    def delete(self, using=None, keep_parents=False):
+        self.is_active = False
 
     class Meta:
         db_table = 'user'
