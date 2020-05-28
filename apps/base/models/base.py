@@ -10,8 +10,8 @@ class BaseModel(models.Model):
     date_modified = models.DateTimeField(auto_now=True, editable=False)
     is_active = models.BooleanField(default=True)
 
-    objects = IsActiveManager
-    objects_all = AllObjectsManager
+    objects = IsActiveManager()
+    objects_all = AllObjectsManager()
 
     def delete(self, using=None, keep_parents=False):
         self.is_active = False

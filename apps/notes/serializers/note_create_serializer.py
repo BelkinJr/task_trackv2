@@ -23,4 +23,4 @@ class NoteCreateSerializer(GenericSerializerMixin, serializers.ModelSerializer):
 
     class Meta:
         model = Note
-        fields = ('author', 'body', 'id', 'team')
+        fields = ('author', 'body', 'team')

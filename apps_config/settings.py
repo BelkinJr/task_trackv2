@@ -45,7 +45,8 @@ INSTALLED_APPS = [
     'apps.base',
     'apps.user',
     'apps.team',
-    'apps.notes'
+    'apps.notes',
+    'apps.invite'
 ]
 
 MIDDLEWARE = [
@@ -84,8 +85,12 @@ WSGI_APPLICATION = 'apps_config.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'task_trackv2',
+        'USER': 'task_track',
+        'PASSWORD': '1qa2ws3ed4rf',
+        'HOST': 'localhost',
+        'PORT': '5432',
     }
 }
 

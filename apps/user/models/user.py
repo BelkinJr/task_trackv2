@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
-from apps.base.managers import IsActiveManager, AllObjectsManager
+from apps.base.managers import IsActiveUserManager, AllObjectsUserManager
 import uuid
 
 
@@ -13,8 +13,8 @@ class User(AbstractUser):
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)
 
-    objects = IsActiveManager
-    objects_all = AllObjectsManager
+    objects = IsActiveUserManager()
+    objects_all = AllObjectsUserManager()
 
     USERNAME_FIELD = 'username'
 

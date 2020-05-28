@@ -11,11 +11,11 @@ class Invite(BaseModel):
 
     user = models.ForeignKey(User, related_name='invite', on_delete=models.DO_NOTHING)
     team = models.ForeignKey(Team, related_name='invite', on_delete=models.DO_NOTHING)
-    status = models.CharField(choices=[
+    status = models.CharField(choices=(
         (INVITE_STATUS_ACCEPTED, 'accepted'),
         (INVITE_STATUS_DECLINED, 'declined'),
         (INVITE_STATUS_PENDING, 'pending'),
-    ], default=INVITE_STATUS_PENDING)
+    ), default=INVITE_STATUS_PENDING, max_length=31)
 
     class Meta:
         db_table = 'invite'
