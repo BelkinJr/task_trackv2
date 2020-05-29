@@ -16,12 +16,10 @@ class InviteView(generics.GenericAPIView):
 
     @validate_team
     def post(self, request: Request, *args: Any, team: Team, **kwargs: Any) -> Response:
-        request.data['payload'].update({'team': team.id})
         serializer = self.get_serializer(data=request.data)
-        print(serializer)
         if not serializer.is_valid():
             return Response(data=serializer.errors)
         invite = serializer.create(serializer.validated_data)
-        invite_id = {'inv_id': str(invite.id)}
+        invite_id = {'inv_id': str(invite.id)} #to be fixed
         invite_token = create_invite_token(invite_id)
         return Response(data=invite_token, status=200)
