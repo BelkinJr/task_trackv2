@@ -9,8 +9,8 @@ class Invite(BaseModel):
     INVITE_STATUS_DECLINED = 'DEC'
     INVITE_STATUS_PENDING = 'PEN'
 
-    user = models.ForeignKey(User, related_name='invite', on_delete=models.DO_NOTHING)
-    team = models.ForeignKey(Team, related_name='invite', on_delete=models.DO_NOTHING)
+    user = models.ForeignKey(User, related_name='invites', on_delete=models.DO_NOTHING)
+    team = models.ForeignKey(Team, related_name='invites', on_delete=models.DO_NOTHING)
     status = models.CharField(choices=(
         (INVITE_STATUS_ACCEPTED, 'accepted'),
         (INVITE_STATUS_DECLINED, 'declined'),
