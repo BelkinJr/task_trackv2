@@ -8,13 +8,17 @@ from typing import Any, Dict
 
 class InviteCreateSerializer(GenericSerializerMixin, serializers.ModelSerializer):
 
+    def __init__(self, team: Team, **kwargs):
+        self._team = team
+        super().__init__(self, **kwargs)
+
     def to_internal_value(self, data: Dict[str, Any]) -> Dict[str, Any]:
         data = super().to_internal_value(self.transform_input(data))
         return data
 
     def validate(self, attrs: Dict[str, Any]) -> Dict[str, Any]:
         team = attrs.get('team')
-        user = User.objects.get(username=attrs['username'])  # TODO: to be fixed
+        user = User.objects.get(id=attrs['id'])  # TODO: to be fixed
         if team in user.teams.all():
             raise serializers.ValidationError("User is already in the team")
         else:
