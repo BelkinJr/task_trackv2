@@ -9,7 +9,7 @@ from typing import Any, Dict
 class InviteCreateSerializer(GenericSerializerMixin, serializers.ModelSerializer):
     class Meta:
         model = Invite
-        fields = ('user', 'team', )
+        fields = ('user', )
 
     def __init__(self, team: Team, **kwargs):
         self._team = team.id
@@ -20,8 +20,8 @@ class InviteCreateSerializer(GenericSerializerMixin, serializers.ModelSerializer
         return data
 
     def validate(self, attrs: Dict[str, Any]) -> Dict[str, Any]:
-        team = attrs.get('team')
-        user = User.objects.get(id=attrs['id'])  # TODO: to be fixed
+        team = self._team
+        user = attrs.get('user')  # TODO: to be fixed
         if team in user.teams.all():
             raise serializers.ValidationError("User is already in the team")
         else:

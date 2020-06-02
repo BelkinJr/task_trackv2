@@ -15,8 +15,8 @@ class InviteView(generics.GenericAPIView):
     serializer_class = InviteCreateSerializer
 
     @validate_team
-    def post(self, request: Request, *args: Any, team: Team, **kwargs: Any) -> Response:
-        serializer = self.get_serializer(team=team, data=request.data)
+    def post(self, request: Request, *args: Any, team_obj: Team, **kwargs: Any) -> Response:
+        serializer = self.get_serializer(team=team_obj, data=request.data)
 
         if not serializer.is_valid():
             return Response(data=serializer.errors)
