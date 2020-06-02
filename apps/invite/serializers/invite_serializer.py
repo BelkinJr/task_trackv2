@@ -7,6 +7,9 @@ from typing import Any, Dict
 
 
 class InviteCreateSerializer(GenericSerializerMixin, serializers.ModelSerializer):
+    class Meta:
+        model = Invite
+        fields = ('user', 'team', )
 
     def __init__(self, team: Team, **kwargs):
         self._team = team.id
@@ -24,7 +27,3 @@ class InviteCreateSerializer(GenericSerializerMixin, serializers.ModelSerializer
         else:
             attrs.update({'user': user.id})
             return attrs
-
-    class Meta:
-        model = Invite
-        fields = ('user', 'team', )

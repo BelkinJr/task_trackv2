@@ -17,7 +17,11 @@ def login_required(func: TFunc) -> TFunc:
 
         request = args[1]
         assert isinstance(request, Request), f'{request} given'
-        token = request.query_params['at']
+
+        token = request.query_params.get('at')
+
+        if not token:
+            return Response({'Error': "Fuck off mate"}, status=400)
 
         try:
             decoded_data = jwt.decode(token, JWT_SECRET, True, JWT_ALGORITHM)
@@ -74,13 +78,14 @@ def validate_team(func: TFunc) -> TFunc:
 
         try:
             team = Team.objects.get(id=team_id)
-            kwargs['team'] = team
 
             if not user_inviting.teams.filter(id=team.id).exists():
                 return Response({'Error': "User is not in the team"}, status=403)
 
         except Team.DoesNotExist:
             return Response({'Error': "Team not found"}, status=400)
+
+        kwargs['team_obj'] = team
 
         return func(*args, **kwargs)
     return cast(TFunc, wrapper)

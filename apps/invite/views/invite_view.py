@@ -1,13 +1,13 @@
-from rest_framework import status, generics
+from rest_framework import generics
 from rest_framework.response import Response
 from rest_framework.request import Request
 from apps.invite.models.invite import Invite
-from apps.user.models.user import User
-from apps.team.models.team import Team
 from apps.base.decorators import validate_team
 from apps.invite.utils.create_invite_token import create_invite_token
 from apps.invite.serializers.invite_serializer import InviteCreateSerializer
 from typing import Any
+
+from apps.team.models.team import Team
 
 
 class InviteView(generics.GenericAPIView):
@@ -15,9 +15,7 @@ class InviteView(generics.GenericAPIView):
     serializer_class = InviteCreateSerializer
 
     @validate_team
-    def post(self, request: Request, *args: Any, **kwargs: Any) -> Response:
-        team = kwargs.get('team')
-
+    def post(self, request: Request, *args: Any, team: Team, **kwargs: Any) -> Response:
         serializer = self.get_serializer(team=team, data=request.data)
 
         if not serializer.is_valid():
