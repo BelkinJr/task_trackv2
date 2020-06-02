@@ -16,11 +16,9 @@ class InviteView(generics.GenericAPIView):
 
     @validate_team
     def post(self, request: Request, *args: Any, **kwargs: Any) -> Response:
-        print(request.data)
+        team = kwargs.get('team')
 
-        serializer = self.get_serializer(data=request.data)
-
-        serializer = serializer(kwargs.get('team'), request.data)
+        serializer = self.get_serializer(team=team, data=request.data)
 
         if not serializer.is_valid():
             return Response(data=serializer.errors)

@@ -9,7 +9,7 @@ from typing import Any, Dict
 class InviteCreateSerializer(GenericSerializerMixin, serializers.ModelSerializer):
 
     def __init__(self, team: Team, **kwargs):
-        self._team = team
+        self._team = team.id
         super().__init__(self, **kwargs)
 
     def to_internal_value(self, data: Dict[str, Any]) -> Dict[str, Any]:
