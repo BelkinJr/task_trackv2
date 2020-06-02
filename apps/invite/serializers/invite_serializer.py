@@ -12,13 +12,13 @@ class InviteCreateSerializer(GenericSerializerMixin, serializers.ModelSerializer
         fields = ('user', )
 
     def __init__(self, team: Team, **kwargs):
-        self._team = team.id
+        self._team = team
         super().__init__(self, **kwargs)
 
     def create(self, validated_data):
         data = {'user': validated_data.get('user'),
                 'team': self._team}
-        super().create(**data)
+        super().create(data)
 
     def to_internal_value(self, data: Dict[str, Any]) -> Dict[str, Any]:
         data = super().to_internal_value(self.transform_input(data))
