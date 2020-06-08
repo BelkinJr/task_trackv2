@@ -11,7 +11,21 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
+import environ
 from typing import List
+
+env = environ.Env(
+    # set casting, default value
+    DEBUG=(bool, False)
+)
+
+base = environ.Path(__file__)
+env_file = '.env.local'
+if not env.str('ENV_PATH', '.env.local') == '.env.local':
+    env_file = env.str('ENV_PATH', '.env.local') + env_file
+
+env.read_env(env_file=base(env_file))
+
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -21,10 +35,10 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '^8x0=hjo1b+db5tz%f=q%)j8%1y(^_b0g9w#0+pgu(@i-uxd!1'
+SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env('DEBUG')
 
 ALLOWED_HOSTS: List[str] = ['*']
 
@@ -86,11 +100,11 @@ WSGI_APPLICATION = 'apps_config.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'task_trackv2',
-        'USER': 'task_track',
-        'PASSWORD': '1qa2ws3ed4rf',
-        'HOST': 'localhost',
-        'PORT': '5432',
+        'NAME': env('DB_NAME'),
+        'USER': env('DB_USER'),
+        'PASSWORD': env('DB_PASSWORD'),
+        'HOST': env('DB_HOST'),
+        'PORT': env('DB_PORT'),
     }
 }
 
