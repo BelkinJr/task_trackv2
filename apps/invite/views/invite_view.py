@@ -1,7 +1,7 @@
 from rest_framework import generics
 from rest_framework.response import Response
 from rest_framework.request import Request
-from apps.invite.models.invite import Invite
+from apps.invite.models.invite_user_to_team import InviteUserToTeam
 from apps.base.decorators import validate_team
 from apps.invite.utils.create_invite_token import create_invite_token
 from apps.invite.serializers.invite_serializer import InviteCreateSerializer
@@ -11,7 +11,7 @@ from apps.team.models.team import Team
 
 
 class InviteView(generics.GenericAPIView):
-    queryset = Invite.objects.all()
+    queryset = InviteUserToTeam.objects.all()
     serializer_class = InviteCreateSerializer
 
     @validate_team
