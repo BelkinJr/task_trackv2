@@ -3,7 +3,7 @@ from apps.base.constants import JWT_SECRET, JWT_ALGORITHM
 from apps.user.models.user import User
 from apps.team.models.team import Team
 from rest_framework.request import Request
-from apps.invite.models.invite import Invite
+from apps.invite.models.invite_user_to_team import InviteUserToTeam
 from typing import Any, TypeVar, Callable, cast
 import functools
 import jwt
@@ -50,7 +50,7 @@ def validate_invite(func: TFunc) -> TFunc:
 
         try:
             decoded_data = jwt.decode(invite_token, JWT_SECRET, True, JWT_ALGORITHM)
-            invite = Invite.objects.get(id=decoded_data['invite_id'])
+            invite = InviteUserToTeam.objects.get(id=decoded_data['invite_id'])
 
         except jwt.DecodeError:
             return Response({"error_code": "INVALID_TOKEN"}, status=401)

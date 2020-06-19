@@ -3,17 +3,20 @@ import environ
 
 from typing import List
 
+BASE_DIR = (environ.Path(__file__) - 2)()
+APPS_CONFIG_DIR = (environ.Path(__file__) - 1)()
+
+ENV__FILE_NAME = '.env.local'
+
 env = environ.Env(
     # set casting, default value
     DEBUG=(bool, False)
 )
-environ.Env.read_env()
+environ.Env.read_env(os.path.join(APPS_CONFIG_DIR, ENV__FILE_NAME))
 
 DEBUG = env('DEBUG')
 
 SECRET_KEY = env('SECRET_KEY')
-
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 ALLOWED_HOSTS: List[str] = ['*']
 
