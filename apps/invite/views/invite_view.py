@@ -6,6 +6,8 @@ from apps.base.decorators import validate_team
 from apps.invite.utils.create_invite_token import create_invite_token
 from apps.invite.serializers.invite_serializer import InviteCreateSerializer
 from typing import Any
+from apps_config.url_constants import ENV_TO_DOMAIN_MAP
+from apps_config.env_constants import CURRENT_ENV
 
 from apps.team.models.team import Team
 
@@ -25,5 +27,6 @@ class InviteView(generics.GenericAPIView):
 
         invite_id = {'inv_id': str(invite.id)}  # TODO: to be fixed
         invite_token = create_invite_token(invite_id)
+        host = ENV_TO_DOMAIN_MAP[CURRENT_ENV]
 
         return Response(data=invite_token, status=200)
