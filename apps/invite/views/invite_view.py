@@ -28,5 +28,6 @@ class InviteView(generics.GenericAPIView):
         invite_id = {'inv_id': str(invite.id)}  # TODO: to be fixed
         invite_token = create_invite_token(invite_id)
         host = ENV_TO_DOMAIN_MAP[CURRENT_ENV]
+        data = f'https://{host}/{invite_token}'
 
-        return Response(data=invite_token, status=200)
+        return Response(data=data, status=200)
