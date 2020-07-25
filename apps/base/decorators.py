@@ -21,7 +21,7 @@ def login_required(func: TFunc) -> TFunc:
         token = request.query_params.get('at')
 
         if not token:
-            return Response({'Error': "Fuck off mate"}, status=400)
+            return Response({'Error': "Token not found"}, status=400)
 
         try:
             decoded_data = jwt.decode(token, JWT_SECRET, True, JWT_ALGORITHM)

@@ -27,6 +27,7 @@ class InviteCreateSerializer(GenericSerializerMixin, serializers.ModelSerializer
         return self.create_invite(data)
 
     def create_invite(self, data):
+        print(data)
         invite = InviteUserToTeam.objects.create(**data)
         token = create_invite_token(invite.id)
         invite.token = token
@@ -40,7 +41,7 @@ class InviteCreateSerializer(GenericSerializerMixin, serializers.ModelSerializer
     def validate(self, attrs: Dict[str, Any]) -> Dict[str, Any]:
         team = self._team
         user = attrs.get('user')  # TODO: to be fixed
-        user_obj = User.objects.get(id=user)
+        user_obj = User.objects.get(username=user)
         if team in user_obj.teams.all():
             raise serializers.ValidationError("User is already in the team")
         if not InviteUserToTeam.objects.filter(team=team, user=user, status='PEN').exists():
