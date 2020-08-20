@@ -40,9 +40,28 @@ def login_required(func: TFunc) -> TFunc:
 
 
 def validate_invite(func: TFunc) -> TFunc:
-    @login_required
     @functools.wraps(func)
     def wrapper(*args: Any, **kwargs: Any) -> Any:
+
+        request = args[1]
+        assert isinstance(request, Request), f'{request} given'
+
+        token = request.query_params.get('at')
+
+        if not token:
+            return Response({'Error': "Token not found"}, status=400)
+
+        try:
+            decoded_data = jwt.decode(token, JWT_SECRET, True, JWT_ALGORITHM)
+            user = User.objects.get(id=decoded_data['id'])
+
+            kwargs['user'] = user
+
+        except User.DoesNotExist:
+            return Response({'Error': "User not found"}, status=400)
+
+        except jwt.DecodeError:
+            return Response({"error_code": "INVALID_TOKEN"}, status=401)
 
         data = args[1].query_params
         invite_token = data['it']
@@ -66,11 +85,29 @@ def validate_invite(func: TFunc) -> TFunc:
 
 
 def validate_team(func: TFunc) -> TFunc:
-    @login_required
     @functools.wraps(func)
     def wrapper(*args: Any, **kwargs: Any) -> Any:
 
         request = args[1]
+        assert isinstance(request, Request), f'{request} given'
+
+        token = request.query_params.get('at')
+
+        if not token:
+            return Response({'Error': "Token not found"}, status=400)
+
+        try:
+            decoded_data = jwt.decode(token, JWT_SECRET, True, JWT_ALGORITHM)
+            user = User.objects.get(id=decoded_data['id'])
+
+            kwargs['user'] = user
+
+        except User.DoesNotExist:
+            return Response({'Error': "User not found"}, status=400)
+
+        except jwt.DecodeError:
+            return Response({"error_code": "INVALID_TOKEN"}, status=401)
+
         assert isinstance(request, Request), f'{request} given'
         user_inviting = kwargs['user']
         team_id = kwargs['team_id']
