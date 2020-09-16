@@ -44,7 +44,7 @@ class InviteCreateSerializer(GenericSerializerMixin, serializers.ModelSerializer
         user_obj = User.objects.get(username=user)
         if team in user_obj.teams.all():
             raise serializers.ValidationError("User is already in the team")
-        if not InviteUserToTeam.objects.filter(team=team, user=user, status='PEN').exists():
+        if InviteUserToTeam.objects.filter(team=team, user=user, status='PEN').exists():
             raise serializers.ValidationError("Invite has already been issued")
         else:
             return attrs
