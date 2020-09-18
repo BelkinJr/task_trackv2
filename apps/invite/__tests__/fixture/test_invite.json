@@ -1,69 +1,78 @@
-{
-    "user": [
+[
         {
-            "password": "pbkdf2_sha256$180000$IhpTpAGVBMY4$AoNx3HZUwILlpH43vk2m7KxgZljpsUeRY1TWZrNwb6Q=",
-            "last_login": null,
-            "is_superuser": false,
-            "email": "",
-            "is_staff": false,
-            "is_active": true,
-            "date_joined": "2020-05-25 08:47:01.657440",
-            "id": "cfc035db-abe8-4e87-97ed-f05dfa5a1d95",
-            "date_created": "2020-05-25 08:47:01.657440",
-            "date_modified": "2020-05-25 08:47:01.856336",
-            "username": "test",
-            "first_name": "Test",
-            "last_name": "Testovich"
+            "model": "user.user",
+            "pk": "cfc035db-abe8-4e87-97ed-f05dfa5a1d95",
+            "fields": {
+                "password": "pbkdf2_sha256$180000$IhpTpAGVBMY4$AoNx3HZUwILlpH43vk2m7KxgZljpsUeRY1TWZrNwb6Q=",
+                "last_login": null,
+                "is_superuser": false,
+                "email": "",
+                "is_staff": false,
+                "is_active": true,
+                "date_joined": "2019-10-10T00:05:46.617Z",
+                "date_created": "2019-10-10T00:05:46.617Z",
+                "date_modified": "2019-10-10T00:05:46.617Z",
+                "username": "test",
+                "first_name": "Test",
+                "last_name": "Testovich"
+            }
         },
         {
-            "password": "pbkdf2_sha256$180000$GmUwvyymMePL$mWjs+Oyuf/CcViQRqZP84v0jNOd7sKqjQMQTs79ANjE=",
-            "last_login": null,
-            "is_superuser": false,
-            "email": "",
-            "is_staff": false,
-            "is_active": true,
-            "date_joined": "2020-05-27 07:34:47.716610",
-            "id": "11814d18-4e8d-45b6-b9c9-f08577d731eb",
-            "date_created": "2020-05-27 07:34:47.716610",
-            "date_modified": "2020-05-27 07:34:47.928487",
-            "username": "test2",
-            "first_name": "Test",
-            "last_name": "Testovich"
+            "model": "user.user",
+            "pk": "11814d18-4e8d-45b6-b9c9-f08577d731eb",
+            "fields": {
+                "password": "pbkdf2_sha256$180000$GmUwvyymMePL$mWjs+Oyuf/CcViQRqZP84v0jNOd7sKqjQMQTs79ANjE=",
+                "last_login": null,
+                "is_superuser": false,
+                "email": "",
+                "is_staff": false,
+                "is_active": true,
+                "date_joined": "2019-10-10T00:05:46.617Z",
+                "date_created": "2019-10-10T00:05:46.617Z",
+                "date_modified": "2019-10-10T00:05:46.617Z",
+                "username": "test2",
+                "first_name": "Test",
+                "last_name": "Testovich"
+            }
         },
         {
-            "password": "pbkdf2_sha256$180000$1yUb7vZiNgyq$07vBlacUFjegDi3jY7f8yE4N4xfJulAcuettE0b76BQ=",
-            "last_login": null,
-            "is_superuser": false,
-            "email": "",
-            "is_staff": false,
-            "is_active": true,
-            "date_joined": "2020-07-16 03:41:33.456649",
-            "id": "a7e02ac4-2295-418c-8d92-a51d52b8b35f",
-            "date_created": "2020-07-16 03:41:33.457656",
-            "date_modified": "2020-07-16 03:41:33.680519",
-            "username": "test34",
-            "first_name": "Test",
-            "last_name": "Testovich"
-        }
-    ],
-    "team": [
+            "model": "user.user",
+            "pk": "a7e02ac4-2295-418c-8d92-a51d52b8b35f",
+            "fields": {
+                "password": "pbkdf2_sha256$180000$1yUb7vZiNgyq$07vBlacUFjegDi3jY7f8yE4N4xfJulAcuettE0b76BQ=",
+                "last_login": null,
+                "is_superuser": false,
+                "email": "",
+                "is_staff": false,
+                "is_active": true,
+                "date_joined": "2019-10-10T00:05:46.617Z",
+                "date_created": "2019-10-10T00:05:46.617Z",
+                "date_modified": "2019-10-10T00:05:46.617Z",
+                "username": "test34",
+                "first_name": "Test",
+                "last_name": "Testovich"
+            }
+        },
         {
-            "id": "9509f1da-214f-4e25-b310-914c8920521a",
-            "date_created": "2020-05-25 10:37:56.010707",
-            "date_modified": "2020-05-25 10:37:56.010707",
-            "is_active": true,
-            "team_name": "privet",
-            "creator_id": "cfc035db-abe8-4e87-97ed-f05dfa5a1d95"
-        }
-    ],
-    "user_team": [
+            "model": "team.team",
+            "pk": "9509f1da-214f-4e25-b310-914c8920521a",
+            "fields": {
+                "date_created": "2019-10-10T00:05:46.617Z",
+                "date_modified": "2019-10-10T00:05:46.617Z",
+                "is_active": true,
+                "team_name": "privet",
+                "creator_id": "cfc035db-abe8-4e87-97ed-f05dfa5a1d95"
+            }
+        },
         {
-            "id": "06b94119-49b2-4e9a-8251-7dc6774c1d2a",
-            "date_created": "2020-05-25 10:37:56.018701",
-            "date_modified": "2020-05-25 10:37:56.018701",
-            "is_active": true,
-            "team_id": "9509f1da-214f-4e25-b310-914c8920521a",
-            "user_id": "cfc035db-abe8-4e87-97ed-f05dfa5a1d95"
+            "model": "team.userteam",
+            "pk": "06b94119-49b2-4e9a-8251-7dc6774c1d2a",
+            "fields": {
+                "date_created": "2019-10-10T00:05:46.617Z",
+                "date_modified": "2019-10-10T00:05:46.617Z",
+                "is_active": true,
+                "team_id": "9509f1da-214f-4e25-b310-914c8920521a",
+                "user_id": "cfc035db-abe8-4e87-97ed-f05dfa5a1d95"
+            }
         }
-    ]
-}
+]
