@@ -22,7 +22,7 @@ from apps.user.views.user_login_view import UserLoginView
 from apps.notes.views.note_view import NoteView
 from apps.team.views.team_view import TeamView
 from apps.invite.views.invite_view import InviteView
-from apps.user.views.get_user_by_username_view import GetUserByUsernameView
+# from apps.user.views.get_user_by_username_view import GetUserByUsernameView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
