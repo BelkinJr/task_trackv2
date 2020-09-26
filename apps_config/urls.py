@@ -33,5 +33,3 @@ urlpatterns = [
     path(f'{API_URL}/teams/', TeamView.as_view(), name='team'),
     # path(f'{API_URL}/invites/', InviteView.as_view(), name='invite'),
 ]
-
-
