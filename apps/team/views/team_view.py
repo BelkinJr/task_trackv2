@@ -4,7 +4,7 @@ from rest_framework.request import Request
 from apps.team.models import Team
 from apps.user.models.user import User
 from apps.team.serializers.team_create_serializer import TeamCreateSerializer
-from apps.base.decorators import login_required
+from apps.base.decorators.login_required import login_required
 from typing import Any
 
 

@@ -1,11 +1,12 @@
 from rest_framework import generics, status
 from rest_framework.response import Response
 from rest_framework.request import Request
+
+from apps.base.decorators.login_required import login_required
 from apps.notes.models.note import Note
 from apps.user.models.user import User
 from typing import Any
 from apps.notes.serializers.note_create_serializer import NoteCreateSerializer
-from apps.base.decorators import login_required
 
 
 class NoteView(generics.GenericAPIView):

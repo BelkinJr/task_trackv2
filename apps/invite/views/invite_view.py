@@ -2,23 +2,25 @@ from rest_framework import generics
 from rest_framework.response import Response
 from rest_framework.request import Request
 from apps.invite.models.invite_user_to_team import InviteUserToTeam
-from apps.base.decorators import validate_team
+from apps.base.decorators.login_required import login_required
 from apps.invite.utils.create_invite_token import create_invite_token
 from apps.invite.serializers.invite_serializer import InviteCreateSerializer
 from typing import Any
+
+from apps.team.utils.get_existing_team_by_id import get_existing_team_by_id
 from apps_config.url_constants import ENV_TO_DOMAIN_MAP
 from apps_config.env_constants import CURRENT_ENV
-
-from apps.team.models.team import Team
+from helpers.responses import CreatedStdResponse
 
 
 class InviteView(generics.GenericAPIView):
     queryset = InviteUserToTeam.objects.all()
     serializer_class = InviteCreateSerializer
 
-    @validate_team
-    def post(self, request: Request, *args: Any, team_obj: Team, **kwargs: Any) -> Response:
-        print(request)
+    @login_required
+    def post(self, request: Request, *args: Any, **kwargs: Any) -> Response:
+        team_obj = get_existing_team_by_id(kwargs.get('team_id'))
+
         serializer = self.get_serializer(team=team_obj, data=request.data)
 
         if not serializer.is_valid():
@@ -31,4 +33,4 @@ class InviteView(generics.GenericAPIView):
         host = ENV_TO_DOMAIN_MAP[CURRENT_ENV]
         data = f'https://{host}/{invite_token}'
 
-        return Response(data=data, status=200)
+        return CreatedStdResponse(data={'token_url': data})

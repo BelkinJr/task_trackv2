@@ -16,6 +16,7 @@ class InviteCreateSerializer(GenericSerializerMixin, serializers.ModelSerializer
         fields = ('user', )
 
     def __init__(self, team: Team, **kwargs):
+        assert isinstance(team, Team), f'{team} given'
         self._team = team
         super().__init__(**kwargs)
 
@@ -27,7 +28,6 @@ class InviteCreateSerializer(GenericSerializerMixin, serializers.ModelSerializer
         return self.create_invite(data)
 
     def create_invite(self, data):
-        print(data)
         invite = InviteUserToTeam.objects.create(**data)
         token = create_invite_token(invite.id)
         invite.token = token

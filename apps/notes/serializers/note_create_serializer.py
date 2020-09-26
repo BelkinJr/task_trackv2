@@ -18,7 +18,6 @@ class NoteCreateSerializer(GenericSerializerMixin, serializers.ModelSerializer):
         if user.teams.filter(id=team_id).exists():
             return True
         else:
-            print("User is not in the team")
             return False
 
     class Meta:
