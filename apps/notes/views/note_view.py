@@ -15,10 +15,10 @@ class NoteView(generics.GenericAPIView):
 
     @login_required
     def post(self, request: Request, *args: Any, user: User, **kwargs: Any) -> Response:
-        request.data['payload'].update({'author': user.id})
-        serializer = self.get_serializer(data=request.data)
+        serializer = self.get_serializer(data=request.data, user=user)
         if not serializer.is_valid():
             return Response(data=serializer.errors)
+
         note_obj = serializer.create(serializer.validated_data)
         response_data = {'note': NoteCreateSerializer(note_obj).data}
         return Response(data=response_data, status=status.HTTP_201_CREATED)
