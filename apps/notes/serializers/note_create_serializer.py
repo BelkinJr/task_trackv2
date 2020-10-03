@@ -1,3 +1,5 @@
+import datetime
+
 from django.core.exceptions import ValidationError
 from rest_framework import serializers
 from apps.notes.models.note import Note
@@ -17,6 +19,11 @@ class NoteCreateSerializer(GenericSerializerMixin, serializers.ModelSerializer):
         assert isinstance(user, User), f"{user} is given"
         self._user = user
         super().__init__(*args, **kwargs)
+
+    def validate(self, attrs: Dict[str, Any]) -> Dict[str, Any]:
+        if self._user.notes.filter(team=attrs.get('team'), date_created__date=datetime.date.today()).count() >= 2:
+            raise ValidationError("Notes limit reached")
+        return attrs
 
     def to_internal_value(self, data: Dict[str, Any]) -> Dict[str, Any]:
         data = super().to_internal_value(self.transform_input(data))
