@@ -22,7 +22,7 @@ from apps.user.views.user_login_view import UserLoginView
 from apps.notes.views.note_view import NoteView
 from apps.team.views.team_view import TeamView
 from apps.invite.views.invite_view import InviteView
-# from apps.user.views.get_user_by_username_view import GetUserByUsernameView
+# from apps.invite.views.invite_accept_view import
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -32,4 +32,5 @@ urlpatterns = [
     path(f'{API_URL}/teams/<uuid:team_id>/generate_invite/', InviteView.as_view(), name='generate_invite'),
     path(f'{API_URL}/teams/', TeamView.as_view(), name='team'),
     # path(f'{API_URL}/invites/', InviteView.as_view(), name='invite'),
+    # path(f'{API_URL}/invites/accept/', InviteAcceptView.as_view(), name='accept_invite'),
 ]

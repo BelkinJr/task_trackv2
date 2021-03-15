@@ -28,7 +28,7 @@ class InviteView(generics.GenericAPIView):
 
         invite = serializer.create(serializer.validated_data)
 
-        invite_id = {'inv_id': str(invite.id)}  # TODO: to be fixed
+        invite_id = {'inv_id': str(invite.id)}
         invite_token = create_invite_token(invite_id)
         host = ENV_TO_DOMAIN_MAP[CURRENT_ENV]
         data = f'https://{host}/{invite_token}'
